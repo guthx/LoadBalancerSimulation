@@ -4,14 +4,16 @@ using LoadBalancerAPI.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LoadBalancerAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20191127131558_ResponseFieldsFix")]
+    partial class ResponseFieldsFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +52,7 @@ namespace LoadBalancerAPI.Migrations
 
                     b.Property<int?>("RequestId1");
 
-                    b.Property<long?>("ServerId");
+                    b.Property<long>("ServerId");
 
                     b.HasKey("Id");
 
@@ -86,7 +88,8 @@ namespace LoadBalancerAPI.Migrations
 
                     b.HasOne("LoadBalancerAPI.Data.Models.Server", "Server")
                         .WithMany()
-                        .HasForeignKey("ServerId");
+                        .HasForeignKey("ServerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

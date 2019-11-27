@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LoadBalancerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoadBalancerAPI.Controllers
@@ -10,6 +11,7 @@ namespace LoadBalancerAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        static volatile public int[] ServerLoad;
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()

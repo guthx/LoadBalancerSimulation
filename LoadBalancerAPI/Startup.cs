@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LoadBalancerAPI.Data.Context;
+using LoadBalancerAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,9 @@ namespace LoadBalancerAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddTransient<DatabaseContext>();
+            services.AddTransient<ILoadBalancerService, LoadBalancerService>();
+            services.AddSingleton<ServerLoadManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +47,7 @@ namespace LoadBalancerAPI
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.ApplicationServices.GetService<ServerLoadManager>();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace LoadBalancerAPI.Data.Models
         public double Latitude { get; set; }
         [Required]
         public double Longitude { get; set; }
+        [Required]
         public double Amount { get; set; }
 
     }
