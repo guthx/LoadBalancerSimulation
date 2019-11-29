@@ -69,5 +69,22 @@ namespace LoadBalancerAPI.Controllers
             }
         }
 
+        [HttpPost("/load-time")]
+        public ActionResult<StatusCodeResult> SetLoadTime([FromBody] SetLoadTimeRequest request)
+        {
+            try
+            {
+                if (!TryValidateModel(request))
+                {
+                    return StatusCode(400);
+                }
+                _service.SetLoadTime(request);
+                return StatusCode(200);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500);
+            }
+        } 
     }
 }

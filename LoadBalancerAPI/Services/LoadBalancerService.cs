@@ -21,7 +21,7 @@ namespace LoadBalancerAPI.Services
         public List<Response> GetResponsesForPeriod(GetResponsesForPeriodRequest request)
         {
             var responses = _context.Responses
-                .Where(r => DateTime.Now.Subtract(r.Date).TotalMinutes <= request.Time)
+                .Where(r => DateTime.Now.Subtract(r.Date).TotalMinutes <= request.Minutes)
                 .Include(r => r.Request)
                 .Include(r => r.Server)
                 .ToList();
@@ -110,6 +110,16 @@ namespace LoadBalancerAPI.Services
 
             return responses;
             
+        }
+
+        public void SetLoadTime(SetLoadTimeRequest request)
+        {
+            var time = request.Seconds;
+            if (time > 300)
+                time = 300;
+            if (time < 5)
+                time = 5;
+            ServerLoadManager.LoadTime = time;
         }
     }
 }

@@ -11,5 +11,6 @@ namespace LoadBalancerAPI.Services
     {
         List<Response> GetResponsesForRequest(GetResponsesForRequestRequest request);
         List<Response> GetResponsesForPeriod(GetResponsesForPeriodRequest request);
+        void SetLoadTime(SetLoadTimeRequest request);
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LoadBalancerAPI.APIModels.Requests
 {
-    public class GetResponsesForPeriodRequest
+    public class SetLoadTimeRequest
     {
         [Required]
-        public int Minutes { get; set; }
+        public int Seconds { get; set; }
     }
 }
