@@ -8,7 +8,7 @@ namespace LoadBalancerAPI.Data.Models
 {
     public class Request
     { 
-        public int Id { get; set; }
+        public long Id { get; set; }
         [Required]
         public double Latitude { get; set; }
         [Required]

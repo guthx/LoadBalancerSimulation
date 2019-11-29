@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LoadBalancerAPI.Migrations
 {
-    public partial class databaseCreation : Migration
+    public partial class createDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +12,7 @@ namespace LoadBalancerAPI.Migrations
                 name: "Requests",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
@@ -43,18 +44,32 @@ namespace LoadBalancerAPI.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ServerId = table.Column<long>(nullable: false)
+                    ServerId = table.Column<long>(nullable: true),
+                    RequestId = table.Column<long>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Count = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Responses", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Responses_Requests_RequestId",
+                        column: x => x.RequestId,
+                        principalTable: "Requests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Responses_Servers_ServerId",
                         column: x => x.ServerId,
                         principalTable: "Servers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Responses_RequestId",
+                table: "Responses",
+                column: "RequestId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Responses_ServerId",
@@ -65,10 +80,10 @@ namespace LoadBalancerAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Requests");
+                name: "Responses");
 
             migrationBuilder.DropTable(
-                name: "Responses");
+                name: "Requests");
 
             migrationBuilder.DropTable(
                 name: "Servers");

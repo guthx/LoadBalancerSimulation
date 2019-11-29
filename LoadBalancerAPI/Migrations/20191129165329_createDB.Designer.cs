@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoadBalancerAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20191127131558_ResponseFieldsFix")]
-    partial class ResponseFieldsFix
+    [Migration("20191129165329_createDB")]
+    partial class createDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace LoadBalancerAPI.Migrations
 
             modelBuilder.Entity("LoadBalancerAPI.Data.Models.Request", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -48,15 +48,15 @@ namespace LoadBalancerAPI.Migrations
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<long>("RequestId");
+                    b.Property<long>("RequestId")
+                        .HasColumnName("RequestId");
 
-                    b.Property<int?>("RequestId1");
-
-                    b.Property<long>("ServerId");
+                    b.Property<long?>("ServerId")
+                        .HasColumnName("ServerId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RequestId1");
+                    b.HasIndex("RequestId");
 
                     b.HasIndex("ServerId");
 
@@ -84,12 +84,12 @@ namespace LoadBalancerAPI.Migrations
                 {
                     b.HasOne("LoadBalancerAPI.Data.Models.Request", "Request")
                         .WithMany()
-                        .HasForeignKey("RequestId1");
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("LoadBalancerAPI.Data.Models.Server", "Server")
                         .WithMany()
-                        .HasForeignKey("ServerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ServerId");
                 });
 #pragma warning restore 612, 618
         }

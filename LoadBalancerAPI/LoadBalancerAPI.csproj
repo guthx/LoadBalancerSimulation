@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191129164248_test.cs" />
+    <Compile Remove="Migrations\20191129164248_test.Designer.cs" />
+    <Compile Remove="Migrations\20191129164502_createDB.cs" />
+    <Compile Remove="Migrations\20191129164502_createDB.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Services\Requests\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
