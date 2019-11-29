@@ -9,6 +9,6 @@ namespace LoadBalancerAPI.APIModels.Requests
     public class GetResponsesForPeriodRequest
     {
         [Required]
-        public int Minutes { get; set; }
+        public int Time { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace LoadBalancerAPI.Services
         public List<Response> GetResponsesForPeriod(GetResponsesForPeriodRequest request)
         {
             var responses = _context.Responses
-                .Where(r => DateTime.Now.Subtract(r.Date).TotalMinutes <= request.Minutes)
+                .Where(r => DateTime.Now.Subtract(r.Date).TotalMinutes <= request.Time)
                 .Include(r => r.Request)
                 .Include(r => r.Server)
                 .ToList();
