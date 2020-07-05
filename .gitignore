@@ -59,6 +59,9 @@ artifacts/
 # StyleCop
 StyleCopReport.xml
 
+# Settings
+appsettings.json
+
 # Files built by Visual Studio
 *_i.c
 *_p.c

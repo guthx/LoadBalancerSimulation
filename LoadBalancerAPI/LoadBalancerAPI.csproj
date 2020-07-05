@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191129164248_test.cs" />
+    <Compile Remove="Migrations\20191129164248_test.Designer.cs" />
+    <Compile Remove="Migrations\20191129164502_createDB.cs" />
+    <Compile Remove="Migrations\20191129164502_createDB.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Requests\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -12,6 +20,7 @@
     <PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
   </ItemGroup>
 
 </Project>
